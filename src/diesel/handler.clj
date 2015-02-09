@@ -63,7 +63,7 @@
 
 (def app (app-handler
            ;; add your application routes here
-           [home-routes base-routes]
+           [heatmap-routes home-routes base-routes]
            ;; add custom middleware here
            :middleware (load-middleware)
            :ring-defaults (mk-defaults false)

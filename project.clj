@@ -12,7 +12,8 @@
                  [environ "1.0.0"]
                  [im.chit/cronj "1.4.3"]
                  [noir-exception "0.2.3"]
-                 [prone "0.6.0"]]
+                 [prone "0.6.0"]
+                 [clojurewerkz/elastisch "2.1.0"]]
 
   :repl-options {:init-ns diesel.repl}
   :jvm-opts ["-server"]

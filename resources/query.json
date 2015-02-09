@@ -1,0 +1,63 @@
+{
+  "_source": {
+    "exclude": [
+      "plays.*", "*"
+    ]
+  },
+  "query": {
+    "filtered": {
+      "query": {
+        "function_score": {
+          "script_score": {
+            "script": "pts-play-score"
+          },
+          "boost_mode": "replace"
+        }
+      }
+    }
+  },
+  "sort": [
+    {
+      "_score": {
+        "order": "desc"
+      }
+    }
+  ],
+  "aggs": {
+    "top_plays": {
+      "terms": {
+        "field": "show_date",
+        "order": {
+          "play_score_sum": "desc"
+        }
+      },
+      "aggs": {
+        "top_plays_hits": {
+          "top_hits": {
+            "_source": {
+              "exclude": [
+                "plays"
+              ]
+            },
+            "size": 1
+          }
+        },
+        "play_score_sum": {
+          "sum": {
+            "script": "_score"
+          }
+        }
+      }
+    },
+    "pc": {
+      "sum": {
+        "script": "pts-play-count"
+      }
+    },
+    "dur": {
+      "sum": {
+        "script": "pts-total-plays-duration"
+      }
+    }
+  }
+}
